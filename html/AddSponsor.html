@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Add Sponsor information</title>
+    <link rel="stylesheet" href="../css/font.css">
+    <link rel="stylesheet" href="../css/xadmin.css">
+    <script src="../lib/layui/layui.js" charset="utf-8"></script>
+    <script src="../js/jquery-3.3.1.js" charset="utf-8"></script>
+    <script type="text/javascript" src="../js/xadmin.js"></script>
+</head>
+
+<body>
+    <div class="layui-form" style="margin-left:200px;margin-top:30px">
+        
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="x-red">*</span>Sponser ID
+            <div class="layui-input-inline">
+                <input type="text" id="id" name="id" autocomplete="off"
+                    placeholder="Please enter Sponsor ID" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="x-red">*</span>Sponsor Name
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="name" name="name" autocomplete="off" placeholder="Please enter Sponsor name"
+                    class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label for="phone" class="layui-form-label">
+                <span class="x-red">*</span>Type
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="type" name="type" autocomplete="off" placeholder="Please enter type"
+                    class="layui-input">
+            </div>
+        </div>
+
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="x-red">*</span>expense
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="expense" name="expense" class="layui-input"
+                    placeholder="Please enter expense">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label for="L_repass" class="layui-form-label">
+            </label>
+            <button class="layui-btn" id="btn1" Width="60">Add</button>
+        </div>
+    </div>
+
+    <script src="../lib/layui/layui.js" charset="utf-8"></script>
+    <script charset="utf-8">
+        $(function () {
+            layui.use(['layer', 'laydate'], function () {
+                var layer = layui.layer;
+                var laydate = layui.laydate;
+
+            });
+
+            $("#btn1").click(function () {
+                var data = {
+                    action:'Create',
+                    id: $("#id").val(),
+                    name: $("#name").val(),
+                    type: $("#type").val(),
+                    expense: $("#expense").val(),
+                };
+
+                $.ajax({
+                    url: '../php/sponsor.php',
+                    type: 'GET',
+                    data: data,
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    success: function (result) {
+                        if (result.code == 0) { //成功
+                            layer.msg("Add Successfully", {icon: 1});
+                        } else { //失败
+                            layer.msg(result.msg, { icon: 5 });
+                        }
+                    }
+                });
+            });
+
+        });
+    </script>
+</body>
+
+</html>

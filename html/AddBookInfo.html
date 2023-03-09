@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Add book information</title>
+    <link rel="stylesheet" href="../css/font.css">
+    <link rel="stylesheet" href="../css/xadmin.css">
+    <script src="../lib/layui/layui.js" charset="utf-8"></script>
+    <script src="../js/jquery-3.3.1.js" charset="utf-8"></script>
+    <script type="text/javascript" src="../js/xadmin.js"></script>
+</head>
+
+<body>
+    <div class="layui-form" style="margin-left:200px;margin-top:30px">
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="x-red">*</span>Book Number
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="CallNo" name="CallNo" autocomplete="off"
+                    placeholder="Please enter book number" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="x-red">*</span>Book Name
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="Name" name="Name" autocomplete="off" placeholder="Please enter book name"
+                    class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label for="phone" class="layui-form-label">
+                <span class="x-red">*</span>Type Number
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="TypeNumber" name="TypeNumber" autocomplete="off" placeholder="Please Type Number"
+                    class="layui-input">
+            </div>
+        </div>
+        <!-- <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="x-red">*</span>Author
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="Author" name="Author" class="layui-input" placeholder="Please enter auther name">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="x-red">*</span>Translator
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="Translator" name="Translator" class="layui-input" placeholder="Translator">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="x-red">*</span>Press
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="Press" name="Press" class="layui-input" placeholder="Press">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="x-red">*</span>Price
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="Price" name="Price" class="layui-input" placeholder="Price">
+            </div>
+        </div> -->
+
+        <!-- <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="x-red">*</span>DatePublication
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="DatePublication" name="DatePublication" class="layui-input"
+                    placeholder="DatePublication">
+            </div>
+        </div> -->
+        
+        <!-- <div class="layui-form-item">
+            <label class="layui-form-label">
+                <span class="x-red">*</span>Page
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="Page" name="Page" class="layui-input" placeholder="Page">
+            </div>
+        </div> -->
+        <div class="layui-form-item">
+            <label for="L_repass" class="layui-form-label">
+            </label>
+            <button class="layui-btn" id="btn1" Width="60">Add</button>
+        </div>
+    </div>
+
+    <script src="../lib/layui/layui.js" charset="utf-8"></script>
+    <script charset="utf-8">
+        $(function () {
+            layui.use(['layer', 'laydate'], function () {
+                var layer = layui.layer;
+                var laydate = layui.laydate;
+
+                // laydate.render({
+                //     elem: '#DatePublication',
+                //     trigger: 'click',
+                //     type: 'year'
+                // });
+            });
+
+            $("#btn1").click(function () {
+                var data = {
+                    action:'Create',
+                    callNo: $("#CallNo").val(),
+                    name: $("#Name").val(),
+                    typeNumber: $("#TypeNumber").val(),
+                    // author: $("#Author").val(),
+                    // translator: $("#Translator").val(),
+                    // press: $("#Press").val(),
+                    // price: $("#Price").val(),
+                    // datePublication: $("#DatePublication").val(),
+                    // page:$("#Page").val()
+                };
+
+                $.ajax({
+                    url: '../php/BookInfos.php',
+                    type: 'GET',
+                    data: data,
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    success: function (result) {
+                        if (result.code == 0) { //成功
+                            layer.msg("Add Successfully", {icon: 1});
+                        } else { //失败
+                            layer.msg(result.msg, { icon: 5 });
+                        }
+                    }
+                });
+            });
+
+        });
+    </script>
+</body>
+
+</html>
